@@ -1,0 +1,25 @@
+\section{Evolutionary Algorithm-based Optimization}
+\label{sec:optimization}
+Once the CHP plant has been modeled by means of the connected NNs, the next step is to  carry out an optimization process to improve the efficiency of the whole process. In particular, we focus on three performance objectives: 1) to minimize the amount of used fuel FG (i.e., natural gas flow), 2) to maximize the generated power POW and 3) to maximize the useful thermal energy FEv (i.e., flow of the fluent in the evaporator). Therefore, we have actually a multi-objective optimization problem. To perform this process, a total of twelve decision variables  are available in the plant; that is, a set of input variables whose values can be changed freely (within certain limits) by the user. These twelve variables are those highlighted in  Figure  \ref{fignns}. The mathematical formulation of this multi-objective problem is as follows:
+
+\bigskip -	Minimize used fuel:		$F_{FlueGas} = F_{Gas_A} + F_{Gas_B} + F_{Gas_C} + F_{Gas_D}$
+\par -	Maximize Power:		$POW = POW_A + POW_B + POW_C + POW_D + POW_{ST}$
+\par -	Maximize drying process: 	$F_{Ev}$
+
+\bigskip
+\noindent being the decision variables and their restrictions:
+\bigskip
+
+\par - $T_{B1\_A}, T_{B2\_A}, T_{B1\_B}, T_{B2\_B}, T_{B1\_C}, T_{B2\_C}, T_{B1\_D}, T_{B1\_D}$. (i.e., two air intake temperatures for each engine). $30^{\circ}C \leq T  \leq  38^{\circ}C$
+\par -	$T_{H2O\_Ex}$ (exchange water temperature). $61^{\circ}C  \leq T  \leq  65^{\circ}C$
+\par -	$P_{St\_Gen}$ (pressure of the steam generator). $20bar  \leq  P  \leq  22bar$
+\par -	$P_{Ev}$ (evaporator pressure). $0.13bar  \leq  P  \leq  0.17bar$
+\par -	$T_{H2O\_SH}$ (superheated water temperature). $110^{\circ}C  \leq  T  \leq  125^{\circ}C$
+\bigskip
+
+%______________ 
+TO BE COMPLETED (MARLON)
+
+{\tt To carry out the multi-objective optimization process an Evolutionary Algorithm has been used. In particular, we have used the Electrostatic Potential Energy Evolutionary Algorithm ESPEA [Braun2015?] which is a non-dominated sorting genetic algorithm in which the function to assure the diversity of the obtained populations, is inspired in the Electrostatic Energy concept. As the authors show, the ESPEA algorithm outperforms other algorithms like for example NSGA-III etc. etc. etc. }
+
+%____________________________________
