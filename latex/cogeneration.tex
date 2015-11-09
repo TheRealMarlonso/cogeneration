@@ -48,6 +48,24 @@
 
 \usepackage{url}
 
+% Professional tables
+\usepackage{booktabs}
+
+% Rotate pages
+\usepackage{pdflscape}
+
+% Sideways table
+\usepackage{rotating}
+
+% FloatBarrier
+\usepackage{placeins}
+
+% Coloring tables
+\usepackage{colortbl}
+\usepackage[table*]{xcolor}
+\xdefinecolor{gray95}{gray}{0.65}
+\xdefinecolor{gray25}{gray}{0.8}
+
 % ToDo Marker
 \usepackage{color}
  \newcommand{\margtodo}
@@ -188,8 +206,11 @@ $ANN$	Artificial Neural Networks
 %% If you have bibdatabase file and want bibtex to generate the
 %% bibitems, please use
 %%
+\FloatBarrier
 \bibliographystyle{elsarticle-harv} 
 \bibliography{cogenBib}
+
+\input{appendix.tex}
 
 \end{document}
 
