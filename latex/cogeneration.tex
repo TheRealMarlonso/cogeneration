@@ -46,6 +46,16 @@
 %% for the whole article with \linenumbers.
 %% \usepackage{lineno}
 
+\usepackage{url}
+
+% ToDo Marker
+\usepackage{color}
+ \newcommand{\margtodo}
+{\marginpar{\textbf{\textcolor{red}{ToDo}}}{}}
+
+\newcommand{\todo}[1]
+{{\textbf{\textcolor{red}{(\margtodo{}#1)}}}{}}
+
 \journal{Applied Soft Computing}
 
 \begin{document}
@@ -95,7 +105,7 @@
 
 \begin{keyword}
 %% keywords here, in the form: keyword \sep keyword
-Neural Networks \sep NSGA II \sep Genetic Algorithm \sep Cogeneration \sep Multiobjective Optimization
+Neural Networks \sep NSGA-II \sep Genetic Algorithm \sep Cogeneration \sep Multiobjective Optimization
 %% PACS codes here, in the form: \PACS code \sep code
 
 %% MSC codes here, in the form: \MSC code \sep code
@@ -178,123 +188,9 @@ $ANN$	Artificial Neural Networks
 %% If you have bibdatabase file and want bibtex to generate the
 %% bibitems, please use
 %%
-%%  \bibliographystyle{elsarticle-harv} 
-%%  \bibliography{<your bibdatabase>}
+\bibliographystyle{elsarticle-harv} 
+\bibliography{cogenBib}
 
-%% else use the following coding to input the bibitems directly in the
-%% TeX file.
-
-\begin{thebibliography}{00}
-
-\iffalse
-BIBLIOGRAPHY
-
-[Ahmadi-2011] Pouria Ahmadi, Ibrahim Dincer. Thermodynamic and exergoenvironmental analyses, and multi-objective optimization of a gas turbine power plant, Applied Thermal Engineering, Volume 31, Issues 14?15, October 2011, Pages 2529?2540, 
-
-[Ameri-09] Mohammad Ameri??, Pouria Ahmadi and Armita Hamidi. Energy, exergy and exergoeconomic analysis of a steam power plant: A case study. International Journal of Energy Research. 2009; 33:499?512, 
-
-[Arslam-2011] Arslan, O. Power generation from medium temperature geothermal resources: ANN-based optimization of Kalina cycle system-34. Energy, 36, (2011), pp. 2528?2534.
-
-[Bare-2005] L. Barelli, G. Bidini. Design of the measurements validation procedure and the expert system architecture for a cogeneration internal combustion engine. Applied Thermal Engineering, Volume 25, Issues 17?18, December 2005, pp. 2698-2714. 
-
-[Bekat-2012] Bekat, T., Erdogan, M., Inal, F., & Genc, A. (2012). Prediction of the bottom ash formed in a coal-fired power plant using artificial neural networks. Energy, 45, 882?887.
-
-[Bertini-12] Ilaria Bertini, Matteo De Felice, Alessandro Pannicelli, Stefano Pizzuti. Soft computing based optimization of combined cycled power plant start-up operation with fitness approximation methods, Applied Soft Computing Volume 11, Issue 6, 2012. Pp. 4110-4116
-
-[Berrios-2011] Rodrigo Berrios, Felipe Núñez, Aldo Cipriano. Fault tolerant measurement system based on Takagi-Sugeno fuzzy models for a gas turbine in a combined cycle power plant, Fuzzy Sets and Systems 174 (2011), pp. 114?130, , 
-
-[Basu-11] M. Basu. Economic environmental dispatch of fixed head hydrothermal power systems using nondominated sorting genetic algorithm-II, Applied Soft Computing, Volume 11, Issue 3, April 2011, Pages 3046?3055 
-
-[Budnik-2012] M. Budnik, W. Stanek, H. Rusinowski. Application of neural modelling in hybrid control model of ??uidized bed boiler ??red with coal and biomass, Proceedings of the 13th International Carpathian Control Conference, ICCC 2012, 2012, pp. 69??-74.
-
-[De-2007] S. De, M. Kaiadi, M. Fast, M. Assadi. Development of an arti??cial neural network model for the steam process of a coal biomass co-fired combined heat and power (CHP) plant in Sweden, Energy 32 (11) (2007) 2099??-2109.
-
-[Deb2012] Kalyanmoy Deb, Francisco Ruiz, Mariano Luque, Rahul Tewari, José M. Cabello, José M. Cejudo On the sizing of a solar thermal electricity plant for multiple objectives using evolutionary optimization, Applied Soft Computing, Volume 12, Issue 10, October 2012, Pages 3300-3311,.
-
-[EnergyWorks] http://www.energyworks.com/
-
-[Flynn-2005] Flynn, D., Ritchie, J., & Cregan, M.. Data mining techniques applied to power plant performance monitoring. Paper presented at IFAC world congress, Prague. (2005)
-
-[Ghate-2011] V. N. Ghate, S. V. Dudul, Cascade Neural-Network-Based Fault Classi??er for Three-Phase Induction Motor, IEEE Transactions on Industrial Electronics 58 (5) (2011) 1555??-1563.
-
-[Gunes-2010] Gunes, M.; Dogru, N. Fuzzy Control of Brushless Excitation System for Steam Turbogenerators, IEEE Transactions on Energy Conversion,. Year: 2010, Volume: 25, Issue: 3, Pages: 844 - 852.
-
-[Habi-2011] Hacene Habbi, Madjid Kidouche, Mimoun Zelmat. Data-driven fuzzy models for nonlinear identification of a complex heat exchanger, Applied Mathematical Modelling 35 (2011) 1470?1482
-
-[Haja-2012] Hajabdollahi, F., Hajabdollahi, Z., & Hajabdollahi, H. Soft computing based multi-objective optimization of steam cycle power plant using NSGA-II and ANN. Applied Soft Computing, (2012), 12, 3648?3655.
-
-[Hsu-2011] Hsu, C.-T., Chuang, H.-J., & Chen, C.-S. (2011). Adaptive load shedding for an industrial petroleum cogeneration system. Expert Systems with Applications, 38,13967?13974.
-
-[Huang-2009] X. Huang, H. Wang, Modelling of combustion process characteristics of a 600 mw boiler by t-s fuzzy neural networks, 2009 International Conference on Eenrgy and Environment Technology (ICEET 2009), Vol. 1, 2009, pp. 737??-740.
-
-[Isazadeh-2012] G. Isazadeh, R. Hooshmand, A. Khodabakhshian, Design of an Adaptative Dynamic Load Shedding Algorithm using Neural Network in the Steel- making cogeneration facility, Iranian Journal od science and technology- Transactions of electrical engineering 36 (E1) (2012) 67??-82.
-
-[Koch-2007] Christoph Koch , Frank Cziesla, , George Tsatsaronis. Optimization of combined cycle power plants using evolutionary algorithms, Special Issue on Process Optimization and Control, Chemical Engineering and Processing: Process Intensification, Volume 46, Issue 11, November 2007, Pages 1151?1159, 
-
-[Kumar-2013] M. Kumar Kirar, G. Agnihotri. Design of high speed adaptive load shedding for industrial cogeneration system, International Review of Electrical Engineering 8 (2) (2013) 867-874. 
-
-[Kwun-2007] Sung-Kwun Oh; Pedrycz, W.; Ho-Sung Park. Fuzzy Relation-Based Neural Networks and Their Hybrid Identification. Instrumentation and Measurement, IEEE Transactions on Year: 2007, Volume: 56, Issue: 6, Pages: 2522 - 2537.
-
-[Lee-2010] Lee, K.Y.; Van Sickel, J.H.; Hoffman, J.A.; Won-Hee Jung; Sung-Ho Kim. Controller Design for a Large-Scale Ultrasupercritical Once-Through Boiler Power Plant. Energy Conversion, IEEE Transactions on. 2010, Volume: 25, Issue: 4, Pages: 1063 - 1070.
-
-[Lemma-2013] T. Lemma, F. Hashim. Intelligent fault detection and diagnosis- application to a cogeneration and cooling plant, Asian Journal of Scienti??c Research 6 (3) (2013) 478??487.
-
-[Liu2010] X.J. Liu, X.B. Kong, G.L. Hou, J.H.  Wang. Modeling of a 1000 MW power plant ultra super-critical boiler system using fuzzy-neural network methods. Energy Conversion and Management 65 (2013) 518?527 .,. 
-
-[Mastacan-2005] Mastacan, L.; Olah, I.; Dosoftei, C.C.; Ivana, D. Neuro-Fuzzy Models of Thermoelectric Power Station Installations. Proceedings of the 2005 International Conference on Computational Intelligence for Modelling, Control and Automation, and International Conference on Intelligent Agents, Web Technologies and Internet Commerce (CIMCA-IAWTIC?05) 2005, Volume: 1, Pages: 899 ? 904. 
-
-[Mazur-2009] V. Mazur. Fuzzy thermoeconomic optimization of energy-transforming systems, Applied Energy, 2007, vol. 84, issue 7-8, pages 749-76
-
-[Moon-2011] Un-Chul Moon; Lee, K.Y. An Adaptive Dynamic Matrix Control With Fuzzy-Interpolated Step-Response Model for a Drum-Type Boiler-Turbine System. IEEE Transactions on Energy Conversion, , Year: 2011, Volume: 26, Issue: 2, Pages: 393 - 401.
-
-[Nikpey2013] H. Nikpey, M. Assadi, P. Breuhaus. Development of an optimized artificial neural network model for combined heat and power micro gas turbines, Applied Energy 108 (2013) 137??-148.
-
-[Noshadi-2013] I. Noshadi, A. Salahi, M. Hemmati, F. Rekabdar, T. Mohammadi. Experimental and an??s modeling for fouling analysis of oily wastewater treatment using ultra??ltration, Asia-Paci??c Journal of Chemical Engineering 8 (4) (2013) 527??-538.
-
-[Pan-2007] Pan, L., Flynn, D., & Cregan, M. Statistical model for power plants performance monitoring and analysis. 42nd International Conference UPEC?07 Universities Power Engineering Conference, 2007. 7, 121?126.
-
-[Rakhshani-2009] E. Rakhshani, I. Sariri, K. Rouzbehi, Application of data mining on fault detection and prediction in boiler of power plant using artificial neural network, 2nd International Conference on Power Engineering, Eenrgy and Electrical Drives Proceedings (POWERENG 2009), Lisbon, 2009, pp. 473??-478.
- 
-[Rashidi-2011] M.M. Rashidi, N. Galanis, F. Nazari, A. Basiri Parsa, L. Shamekhi. Parametric analysis and optimization of regenerative Clausius and organic Rankine cycles with two feedwater heaters using artificial bees colony and artificial neural network, Energy 36 (2011) 5728-5740.
-
-[Refaat-2013 ]S. S. Refaat, H. Abu-Rub, M. S. Saad, E. M. Aboul-Zahab, A. Iqbal, ANN- Based for Detection, Diagnosis the Bearing Fault for Three Phase Induction Motors Using Current Signal, in: 2013 IEEE International Conference on Industrial Technology (ICIT), 2013, pp. 253??258.
-
-[Rodriguez-Martinez-2011] Rodriguez-Martinez, A.; Garduno-Ramirez, R. PI fuzzy gain-scheduling speed control of a gas turbine power plant. Intelligent Systems Application to Power Systems, 2005. Proceedings of the 13th International Conference on, Year: 2005, pp: 6.
-
-[Rossi-2014] Francesco Rossi, D. Velázquez, Iñigo Monedero, Félix Biscarri. Artificial neural networks and physical modeling for determination of baseline consumption of CHP plants. Expert Systems with Applications, 41, (2014), 4658-4669. 
- 
- [Sayyaadi -2011] Hoseyn Sayyaadi, Meisam Babaie, Mohammad Reza Farman. Implementing of the multi-objective particle swarm optimizer and fuzzy decision-maker in exergetic, exergoeconomic and environmental optimization of a benchmark cogeneration system. Energy. Volume 36, Issue 8, August 2011, Pages 4777?4789, - 
-
-[Saez-2007] Saez, D.; Milla, F.; Vargas, L.S. Fuzzy Predictive Supervisory Control Based on Genetic Algorithms for Gas Turbines of Combined Cycle Power Plants. Energy Conversion, IEEE Transactions on Year: 2007, Volume: 22, Issue: 3 Pages: 689 ? 696.
-
-[Shatnawi-2014] Y. Shatnawi, M. Al-khassaweneh. Fault Diagnosis in Internal Combustion Engines Using Extension Neural Network, IEEE Transaction on Industrial Electronics 61 (3) (2014) 1434??1443.
-
-[Sisworahardjo-2013] N. Sisworahardjo, M. Y. El-Sharkh, Validation of arti??cial neural network based model of microturbine power plant, Proceedings of 2013 IEEE Industry Applications Society annual meeting, 2013. 
-
-[Smerkar-2010] Smrekar, J., Pandit, D., Fast, M., Assadi, M., & De, S. (2010). Prediction of power, output of a coal-fired power plant by artificial neural network. Neural Computing & Applications, 19, 725?740. 
-
-[Su-12] Zhi-gang Su, Pei-hong Wang, Jiong Shen, Yu-fei Zhang, Lu Chen. Convenient T-S fuzzy model with enhanced performance using a novel swarm intelligent fuzzy clustering technique??,  Journal of Process Control 22 (2012) 108?124. 
-
-[Suresh-2011] M.V.J.J. Suresh, K.S. Reddy, Ajit Kumar Kolar. ANN-GA based optimization of a high ash coal-fired supercritical power plant. Applied Energy 88 (2011) 4867?4873
-
-[Tamiru-2009] Tamiru, A.L.; Rangkuti, C.; Hashim, F.M. Neuro-fuzzy and PSO based model for the steam and cooling sections of a Cogeneration and Cooling Plant (CCP),. ICEE?2009 3rd International Conference on Energy and Environment. 2009, Pages: 27 ? 33.
-
-
-[Wang-2008] J.-J. Wang, C.-F. Zhang, Y.-Y. Jing. Self-adaptive RBF neural network PID control in exhaust temperature of micro gas turbine, Proceedings of 2008 International Conference on machine learning and cybernetics, Vol. 1-7, 2008, pp. 2131??-2136.
-
-[Zhang-2012] Y. Zhang, J. Ai, Zeta. Potential Modeling of Papermaking Wastewater on Neural Network Proceedings of the 2012 second International Conference on Instrumentation & Measurement, Computer, Communication and Control (IMCCC 2012), 2012, pp. 63??-66.
-
-[Zomo-2011] R. Zomorodian, M. Rezasoltani, M. Ghofrani. Static and dynamic neural networks for simulation and optimization of cogeneration systems, International Journal of Energy and Environmental Engineering 2 (1) (2011) 51-??61.
-\fi
-
-
-
-%% \bibitem[Author(year)]{label}
-%% Text of bibliographic item
-
-\bibitem[ ()]{}
-
-\end{thebibliography}
 \end{document}
 
 \endinput

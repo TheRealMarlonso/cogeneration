@@ -1,25 +1,38 @@
 \section{Evolutionary Algorithm-based Optimization}
 \label{sec:optimization}
 Once the CHP plant has been modeled by means of the connected NNs, the next step is to  carry out an optimization process to improve the efficiency of the whole process. In particular, we focus on three performance objectives: 1) to minimize the amount of used fuel FG (i.e., natural gas flow), 2) to maximize the generated power POW and 3) to maximize the useful thermal energy FEv (i.e., flow of the fluent in the evaporator). Therefore, we have actually a multi-objective optimization problem. To perform this process, a total of twelve decision variables  are available in the plant; that is, a set of input variables whose values can be changed freely (within certain limits) by the user. These twelve variables are those highlighted in  Figure  \ref{fignns}. The mathematical formulation of this multi-objective problem is as follows:
+%
+\begin{itemize}[-]
+	\item Minimize used fuel:		$F_{FlueGas} = F_{Gas_A} + F_{Gas_B} + F_{Gas_C} + F_{Gas_D}$
+	\item Maximize Power:		$POW = POW_A + POW_B + POW_C + POW_D + POW_{ST}$
+	\item Maximize drying process: 	$F_{Ev}$
+\end{itemize}
+%
+The decision variables and their restrictions are listed below:
+%
+\begin{itemize}[-]
+	\item $T_{B1\_A}, T_{B2\_A}, T_{B1\_B}, T_{B2\_B}, T_{B1\_C}, T_{B2\_C}, T_{B1\_D}, T_{B1\_D}$. (i.e., two air intake temperatures for each engine). $30~^{\circ}\textrm{C} \leq T  \leq  38~^{\circ}\textrm{C}$
+	\item $T_{H2O\_Ex}$ (exchange water temperature). $61~^{\circ}\textrm{C}  \leq T  \leq  65~^{\circ}\textrm{C}$
+	\item $P_{St\_Gen}$ (pressure of the steam generator). $20~\textrm{bar}  \leq  P  \leq  22~\textrm{bar}$
+	\item $P_{Ev}$ (evaporator pressure). $0.13~\textrm{bar}  \leq  P  \leq  0.17~\textrm{bar}$
+	\item $T_{H2O\_SH}$ (superheated water temperature). $110~^{\circ}\textrm{C}  \leq  T  \leq  125~^{\circ}\textrm{C}$
+\end{itemize}
 
-\bigskip -	Minimize used fuel:		$F_{FlueGas} = F_{Gas_A} + F_{Gas_B} + F_{Gas_C} + F_{Gas_D}$
-\par -	Maximize Power:		$POW = POW_A + POW_B + POW_C + POW_D + POW_{ST}$
-\par -	Maximize drying process: 	$F_{Ev}$
+Our combined approach of using neural networks as black box functions may be used in conjunction with any evolutionary algorithm that is able to handle real-valued decision variables. Therefore, we have applied several state-of-the-art multiobjective evolutionary algorithms to solve the proposed optimization problem. These algorithms comprise AbYSS (\cite{abyss}), ESPEA (\cite{espea}), IBEA (\cite{ibea}), MOEA/D (\cite{moead2009}), NSGA-II (\cite{nsga2}), NSGA-III (\cite{nsga3part1}), SMS-EMOA (\cite{smsemoa}), and SMPSO (\cite{smpso}).
 
-\bigskip
-\noindent being the decision variables and their restrictions:
-\bigskip
+\todo{Should I briefly explain how all these algorithm work?}
 
-\par - $T_{B1\_A}, T_{B2\_A}, T_{B1\_B}, T_{B2\_B}, T_{B1\_C}, T_{B2\_C}, T_{B1\_D}, T_{B1\_D}$. (i.e., two air intake temperatures for each engine). $30^{\circ}C \leq T  \leq  38^{\circ}C$
-\par -	$T_{H2O\_Ex}$ (exchange water temperature). $61^{\circ}C  \leq T  \leq  65^{\circ}C$
-\par -	$P_{St\_Gen}$ (pressure of the steam generator). $20bar  \leq  P  \leq  22bar$
-\par -	$P_{Ev}$ (evaporator pressure). $0.13bar  \leq  P  \leq  0.17bar$
-\par -	$T_{H2O\_SH}$ (superheated water temperature). $110^{\circ}C  \leq  T  \leq  125^{\circ}C$
-\bigskip
+In order to assess the performance of these individual algorithms we have performed an extensive study making use of the jMetal framework version 4.5 developed by \cite{jmetal2}. Our code and resources are hosted online on Sourceforge and are publicly available\footnote{\url{http://sourceforge.net/projects/jmetalbymarlonso/}}. The output of the cogeneration plant studied in this work is also affected by numerous external variables \todo{You have to explain to me once more, Javi, what these various configurations of the cogeneration plant mean.} that are beyond human control. These variables, however, are observable during the operation and potentially influence the performance of the evolutionary algorithm used for optimization. These different variable configurations result in several optimization scenarios that can be assessed separately. We randomly picked 39 different scenarios as representative sample for a computational study. The goal of this study is identifying the algorithm that performs best across all scenarios. Each algorithm was run 100 times on every test scenario. Algorithm configurations were taken from their original publications.
+
+The difficulty in solving a multi-objective optimization problem is that there usually exists no single solution that optimizes all goals at the same time. Instead, optimization algorithms at finding a representative approximation to the so-called Pareto optimal front. The Pareto front comprises all solutions that can only be improved in one objective by impairing at least one other objective. The idea is that a decision maker chooses a solution from this approximation that is implemented. The approximation of a Pareto front is graded with respect to two criteria. The points found by an algorithm should be located as close as possible to the Pareto front. At the same time, the approximation should cover the Pareto front in its entirety so the decision maker has full knowledge of the choices available. The former aspect is denoted by convergence and the latter by diversity.
+
+We chose the Inverted Generational Distance (IGD) as performance metric since it captures both convergence and diversity.
 
 %______________ 
-TO BE COMPLETED (MARLON)
+\todo{TO BE COMPLETED (MARLON)}
 
-{\tt To carry out the multi-objective optimization process an Evolutionary Algorithm has been used. In particular, we have used the Electrostatic Potential Energy Evolutionary Algorithm ESPEA [Braun2015?] which is a non-dominated sorting genetic algorithm in which the function to assure the diversity of the obtained populations, is inspired in the Electrostatic Energy concept. As the authors show, the ESPEA algorithm outperforms other algorithms like for example NSGA-III etc. etc. etc. }
+%{\tt To carry out the multi-objective optimization process an Evolutionary Algorithm has been used. In particular, we have used the Electrostatic Potential Energy Evolutionary Algorithm ESPEA [Braun2015?] which is a non-dominated sorting genetic algorithm in which the function to assure the diversity of the obtained populations, is inspired in the Electrostatic Energy concept. As the authors show, the ESPEA algorithm outperforms other algorithms like for example NSGA-III etc. etc. etc. }
+
+
 
 %____________________________________
