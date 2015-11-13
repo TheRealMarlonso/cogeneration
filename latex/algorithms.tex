@@ -83,12 +83,14 @@ If a choice rule such as (\ref{eq:efficiency}) is given, it makes sense to focus
 
 ESPEA provides a mechanism that bridges the gap between those conflicting goals. The basic notion of this algorithm consists of interpreting the Pareto front as closed physical system in which charged particles, represented by solutions, may move freely. The aim of ESPEA is to obtain an approximation of the Pareto front of a given size that minimizes the energy of the system. For this purpose, the algorithm maintains an archive of non-dominated solutions. The energy of the archive is computed as the sum of all pair-wise energies between individual solutions of the archive. In physics, the electrostatic energy that works between two particles is the product of their charges divided by their Euclidean distance. ESPEA uses the distance in objective space for computing energies. Charges are interpreted as utility values, where a lower utility corresponds to a higher desirability. In case all solutions are equally desirable, charges are set to one, as it was done for the computational study. In the second part of our analysis, we use (\ref{eq:efficiency}) as charges for biasing the search towards the efficiency optimum. Efficiency values were raised by 3 to increase the bias of the search as suggested by \cite{espea}.
 
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.7\textwidth]{figures/espea.pdf}
-%\caption{ESPEA run using effiency values as charges.}
-%\label{fig:espea}
-%\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{figures/espea-charge.pdf}
+\caption{ESPEA run using effiency values as charges.}
+\label{fig:espea}
+\end{figure}
+
+Figure \ref{fig:espea} illustrates the effect of using the charge mechanism in ESPEA. We observe that the density of solutions is higher in those regions that show high efficiencies. At the same time, a focus on the entire front is retained enabling the decision maker to compare is favorite choice with other alternatives.
 
 
 %____________________________________
