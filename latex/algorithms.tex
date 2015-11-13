@@ -1,6 +1,6 @@
 \section{Evolutionary Algorithm-based Optimization}
 \label{sec:optimization}
-Once the CHP plant has been modeled by means of the connected NNs, the next step is to  carry out an optimization process to improve the efficiency of the whole process. In particular, we focus on three performance objectives: 1) to minimize the amount of used fuel FG (i.e., natural gas flow), 2) to maximize the generated power POW and 3) to maximize the useful thermal energy FEv (i.e., flow of the fluent in the evaporator). Therefore, we have actually a multi-objective optimization problem. To perform this process, a total of twelve decision variables  are available in the plant; that is, a set of input variables whose values can be changed freely (within certain limits) by the user. These twelve variables are those highlighted in  Figure  \ref{fignns}. The mathematical formulation of this multi-objective problem is as follows:
+Once the CHP plant has been modeled by means of the connected NNs, the next step is to  carry out an optimization process to improve the efficiency of the whole process. In particular, we focus on three performance objectives: 1) minimizing the amount of used fuel FG (i.e., natural gas flow), 2) maximizing the generated power POW and 3) maximizing the useful thermal energy FEv (i.e., flow of the fluent in the evaporator). Therefore, we have actually a multi-objective optimization problem. To perform this process, a total of twelve decision variables  are available in the plant; that is, a set of input variables whose values can be changed freely (within certain limits) by the user. These twelve variables are those highlighted in  Figure  \ref{fignns}. The mathematical formulation of this multi-objective problem is as follows:
 %
 \begin{itemize}[-]
 	\item Minimize used fuel:		$F_{FlueGas} = F_{Gas_A} + F_{Gas_B} + F_{Gas_C} + F_{Gas_D}$
@@ -18,35 +18,49 @@ The decision variables and their restrictions are listed below:
 	\item $T_{H2O\_SH}$ (superheated water temperature). $110~^{\circ}\textrm{C}  \leq  T  \leq  125~^{\circ}\textrm{C}$
 \end{itemize}
 
-Our combined approach of using neural networks as black box functions may be used in conjunction with any evolutionary algorithm that is able to handle real-valued decision variables. For this reason, several state-of-the-art multiobjective evolutionary algorithms are considered for solving the proposed optimization problem that all use different search strategies.
+Our combined approach of using NNs as black box functions may be applied in conjunction with any algorithm that is able to handle real-valued decision variables. For this reason, several state-of-the-art multiobjective evolutionary algorithms, which all use different search strategies, are considered for solving the proposed optimization problem.
 
-AbYSS (\cite{abyss}) uses a scatter search template as local search operator. ESPEA's (\cite{espea}) niching mechanism is based on the physical phenomenon of electrostatic potential energy. Indicator-based selection guides the search mechanism of IBEA (\cite{ibea}). MOEA/D (\cite{moead2009}) simultaneously solves multiple scalarized instances of the original problem. NSGA-II (\cite{nsga2}) uses non-dominated sorting and the crowding distance metric. It's successor, NSGA-III (\cite{nsga3part1}), uses reference point based search method. SMS-EMOA (\cite{smsemoa}) aims at finding a population that maximizes the so-called hypervolume measure. Finally, SMPSO (\cite{smpso}) is a particle swarm optimization approach.
+AbYSS (\cite{abyss}) uses a scatter search template as local search operator. ESPEA's (\cite{espea}) niching mechanism is based on the physical phenomenon of electrostatic potential energy. Indicator-based selection guides the search mechanism of IBEA (\cite{ibea}). MOEA/D (\cite{moead2009}) simultaneously solves multiple scalarized instances of the original problem. NSGA-II (\cite{nsga2}) uses non-dominated sorting and the crowding distance metric. It's successor, NSGA-III (\cite{nsga3part1}), applies a reference point based search method. SMS-EMOA (\cite{smsemoa}) aims at finding a population that maximizes the so-called hypervolume measure. Finally, SMPSO (\cite{smpso}) is a particle swarm optimization approach. We have performed an extensive computational study making use of the jMetal framework version 4.5 (\cite{jmetal2}), in order to assess the performance of these individual algorithms. Our code and resources are hosted online on Sourceforge and are publicly available\footnote{\url{http://sourceforge.net/projects/jmetalbymarlonso/}}.
 
-In order to assess the performance of these individual algorithms we have performed an extensive study making use of the jMetal framework version 4.5 developed by \cite{jmetal2}. Our code and resources are hosted online on Sourceforge and are publicly available\footnote{\url{http://sourceforge.net/projects/jmetalbymarlonso/}}. The output of the cogeneration plant studied in this work is also affected by numerous external variables \todo{You have to explain to me once more, Javi, what these various configurations of the cogeneration plant mean.} that lie beyond human control. These variables, however, are observable during operation of the plant and potentially influence the performance of the evolutionary algorithm used for optimization. These different variable configurations result in several optimization scenarios that can be assessed separately. We randomly picked 39 different scenarios as representative sample for a computational study. The goal of this study is identifying the algorithm that performs best across all scenarios. Each algorithm was run 100 times on every test scenario. Algorithm configurations were taken from their original publications.
+As stated before, the performance of the CHP plant is influenced by 213 different parameters, of which 60 were found to have a significant impact. While twelve of these parameters may be manipulated by the plant operator as decision variables, there still exist 48 parameters, whose different combinations of values potentially affect the optimization effort. Therefore, we picked a representative sample of 39 combinations of these 48 parameters that serve as different problem instances for a computational study. The aim of this study is identifying the algorithm that performs best across all scenarios. Each algorithm was run 100 times on every test scenario. Algorithm configurations were taken from their original publications. \num{50000} function evaluations were performed per run. Preliminary tests have revealed that the populations of the algorithms assessed in this study become evolutionary stable around \num{50000} evaluations.
 
-The difficulty in solving a multi-objective optimization problem is that there usually exists no single solution that optimizes all goals at the same time. Instead, optimization algorithms aim at finding a representative approximation to the so-called Pareto optimal front. The Pareto front comprises all solutions that can only be improved in one objective by impairing at least one other objective. The idea is that a decision maker chooses a solution to implement from this approximation. The approximation of a Pareto front is graded with respect to two criteria. The points found by an algorithm should be located as close as possible to the Pareto front. At the same time, the approximation should cover the Pareto front in its entirety so the decision maker has full knowledge about the available options. The former aspect is denoted by convergence and the latter by diversity.
+The difficulty in solving a multi-objective optimization problem is that there usually exists no single solution that optimizes all goals at the same time. Instead, optimization algorithms aim at finding a representative approximation to the so-called Pareto optimal front. The Pareto front comprises all solutions that can only be improved in one objective by impairing at least one other objective. The idea is that a decision maker chooses a solution to implement from this approximation. The approximation of a Pareto front is graded with respect to two criteria. The points found by an algorithm should be located as close as possible to the Pareto front. At the same time, the approximation should cover the Pareto front in its entirety so the decision maker has full knowledge about the available options. The former aspect is denoted by convergence and the latter by diversity (\cite{basicDeb,basicCoello}).
 
-We chose the Inverted Generational Distance (IGD) as performance metric, since it captures both convergence and diversity (\cite{van1998evolutionary}). The IGD metric computes the average of the Hausdorff distances of every Pareto optimal point to a given Pareto front approximation. Since the Pareto fronts are not known in our case, we use all nondominated solutions across all algorithm runs of a single problem instance as reference front. Objective values were normalized to mitigate the effect of different scalings.
+We chose the Inverted Generational Distance (IGD) as performance metric, since it captures both convergence and diversity (\cite{van1998evolutionary}). The IGD metric computes the average of the Hausdorff distances of every Pareto optimal point to a given Pareto front approximation. Since the Pareto fronts are not known in our case, we use all nondominated solutions obtained across all algorithm runs of a single problem instance as reference front. Objective values were normalized to mitigate the effect of different scalings.
 
-A preliminary analysis has revealed that algorithm performances are very similar within the individual problem scenarios. This implies that our approach is very robust with respect to the initial configuration of the CHP \todo{I guess this most be phrased more correctly with respect to what this configurations actually are.}) For the sake of clarity, we therefore only provide a summary of the results in Table \todo{ref}. Full results are provided in the appendix in Table \ref{table:median.IGD}.
+A preliminary analysis has revealed that the performance of an individual algorithm only differs marginally across the different problem instances. This observation indicates that our approach is very robust with respect to the parameters that cannot be influenced by the operator. For the sake of clarity, we therefore only provide a summary of the results in Table \ref{tbl:summary}. Full results are provided in the appendix in Table \ref{table:median.IGD}.
 
-\todo{Summary statistics table}
+\begin{table}
+\caption{Mean and standard deviation of median IGD across all test problems.}
+\label{tbl:summary}
+\centering
+\begin{tabular}{*{4}{c}} \toprule
+AbYSS & ESPEA & IBEA & MOEAD\\ \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-3} \cmidrule(lr){4-4}
+$\num{3.41E-4}_{\num{2.13E-5}}$ & $\num{1.69e-4}_{\num{1.92e-5}}$ & $\num{1.53E-3}_{\num{1.88E-4}}$ & $\num{1.51E-3}_{\num{1.72E-4}}$ \\ \midrule
+NSGA-II & NSGA-III & SMPSO & SMS-EMOA \\ \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-3} \cmidrule(lr){4-4}
+$\num{3.55E-4}_{\num{2.20E-5}}$ & $\num{1.25E-3}_{\num{1.33E-4}}$ & $\num{3.30E-4}_{\num{2.07E-5}}$ & $\num{1.53E-3}_{\num{1.68E-4}}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\todo{Think about checking the results for significance}
 
 The study results demonstrate that there exist clear performance differences between individual algorithms. Values of the IGD metric differ by a factor of ten from best to worst. This implies that the choice of algorithm greatly influences the optimization outcome. Best results are obtained using ESPEA, whereas AbYSS, NSGA-II and SMPSO show also good performances. IBEA, MOEA/D, NSGA-III and SMS-EMOA, on the hand, trail behind.
 
-%______________ 
+\todo{Show an exemplary Pareto front (maybe including an ESPEA run) and elaborate on the performance differences}
 
-\todo{Discuss the study results}
+The multi-objective approach generates a set of solutions among which a decision maker chooses an option that fits his preferences best. In the present context, there exists an efficiency measure that may be used to evaluate the quality of the cogeneration process. Efficiency can be defined as a quotient of the power generated by the unused energy contained in the flue gases:
+%
+\begin{equation}
+\label{eq:efficiency}
+\frac{100 \cdot POW}{F_{FlueGas} - F_{Ev}/0.9}.
+\end{equation}
+%
+A question that needs to be addressed in this context, is, whether the multi-objective approach is suited to find a solution that maximizes the efficiency of the cogeneration process. Our computational study has revealed that all algorithms with the exception of NSGA-II and NSGA-III were able to find a solution possessing an efficiency of 70.6 on every problem instance in their median runs. The best solutions obtained by NSGA-II and NSGA-III across all problems exhibit an efficiency of 70.5. Both values are higher than efficiencies achieved by previous optimization efforts (\cite{Seijo2016309}).
 
-\todo{Show an exemplary Pareto front (maybe including an ESPEA run)}
+If a choice rule such as (\ref{eq:efficiency}) is given, it makes sense to focus the search on those regions of the Pareto optimal that yield the highest efficiency. In a multi-objective context, however, a decision maker is usually not only interest in obtaining a pre-conceived optimum, but also in comparing his choice to other options available. ESPEA provides a mechanism that bridges the gap between those conflicting goals.
 
-\todo{Introduce the cost function}
-
-\todo{Algo results for the cost function}
-
-\todo{ESPEA with augmentation}
-
-\todo{TO BE COMPLETED}
+\todo{ESPEA with augmentation, make plot}
 
 %{\tt To carry out the multi-objective optimization process an Evolutionary Algorithm has been used. In particular, we have used the Electrostatic Potential Energy Evolutionary Algorithm ESPEA [Braun2015?] which is a non-dominated sorting genetic algorithm in which the function to assure the diversity of the obtained populations, is inspired in the Electrostatic Energy concept. As the authors show, the ESPEA algorithm outperforms other algorithms like for example NSGA-III etc. etc. etc. }
 
