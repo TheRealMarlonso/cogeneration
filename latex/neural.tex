@@ -42,53 +42,47 @@ Cooling Engine D & 3/6/1 & \num{6000} & \SI{0.49}{\percent} & \SI{0.33}{\percent
 \end{table}
 
 
-To better appreciate the predicting ability of the NNs, we have also plotted, in Figures \ref{TcoolA} to  \ref{Pturbine}, the predicted data and the real data, for the variables $T_{Mixt\_EngA}$, $F_{GasA}$, $P_{Cond}$, $F_{Steam}$ and $POW_{ST}$. In particular, we have plotted the testing points of one week, corresponding to the Cooling Circuit of one Engine and to the Steam Turbine Condenser. We can observe how the  real and predicted curves are quite similar in both examples, confirming thus that the NNs are able to learn properly the dynamics of the plant. 
+To better appreciate the predicting ability of the NNs, we have also plotted, the predicted data and the real data for the testing points. Because the 4 cooling-circuit models and the 4 engine models have  similar behaviour, we have plotted only the output variables of 6 of the 12 models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$. Furthermore, due to the large amount of samples, the points are re-sampled every 30 minutes for the graphics. We can observe how the  real and predicted curves are quite similar in all the examples, confirming thus that the NNs are able to learn properly the dynamics of the plant.
+
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{nna0bis.pdf}
-\caption{Real data and NN predicted data for the Cooling Circuit Temperature of Engine A ($T_{Mixt\_EngA}$) during a period of a week.}
+\includegraphics[width=1\textwidth]{IrrigationA-ANN.pdf}
+\caption{Real data and NN predicted data for the Cooling Circuit Temperature of Engine A ($T_{Mixt\_EngA}$)}
 \label{TcoolA}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{nna1bis.pdf}
-\caption{Real data and NN predicted data for the Natural Gas Flow  of Engine A ($F_{GasA}$). during a period of a week}
+\includegraphics[width=1\textwidth]{ANNengineD.pdf}
+\caption{Real data and NN predicted data for the Natural Gas Flow  of Engine A ($F_{GasA}$) }
 \label{FengineA}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{nne0bis.pdf}
-\caption{Real data and NN predicted data for the Steam Pressure of the Condenser  ($P_{Cond}$) during a period of a week.}
+\includegraphics[width=1\textwidth]{ANN-STcond.pdf}
+\caption{Real data and NN predicted data for the Steam Presure of the Condenser  ($P_{Cond}$) }
 \label{Pcond}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{nne1bis.pdf}
-\caption{Real data and NN predicted data for the Steam Flow in the Boiler($F_{Steam}$) during a period of a week.}
+\includegraphics[width=1\textwidth]{ANN-EXHAUSTRECOVERY.pdf}
+\caption{Real data and NN predicted data for the Steam Flow in the Boiler($F_{Steam}$) }
 \label{Fboiler}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{nne2bis.pdf}
-\caption{Real data and NN predicted data for the Power generated in the Turbine ($POW_{ST}$) during a period of a week.}
+\includegraphics[width=1\textwidth]{ANN-ST.pdf}
+\caption{Real data and NN predicted data for the Power generated in the Turbine ($POW_{ST}$) }
 \label{Pturbine}
 \end{figure}
 
-
-%\begin{figure}
-%\includegraphics[width=1\textwidth]{TT3219.pdf}
-%\caption{Real data and NN predicted data for the Cooling Circuit Temperature of Engine C ($T_{Mixt\_EngC}$) during a period of a week}
-%\label{tcool}
-%\end{figure}
-
-
-%\begin{figure}
-%\includegraphics[width=1\textwidth]{ConPres.pdf}
-%\caption{Real data and NN predicted data for the Condenser Pressure ($P_{Con}$) during a period of a week}
-%\label{pcool}
-%\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{ANN-Evaporator.pdf}
+\caption{Real data and NN predicted data for the Slurry drying process ($F_{Ev}$) }
+\label{Pturbine}
+\end{figure}
