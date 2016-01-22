@@ -77,7 +77,7 @@ The multi-objective approach generates a set of solutions among which a decision
 \varepsilon_{EE} = \frac{100 \cdot POW}{F_{FlueGas} - F_{Ev}/0.9}.
 \end{equation}
 %
-A question that needs to be addressed in this context is, whether the multi-objective approach is suited to find a solution that maximizes the efficiency of the cogeneration process. Our computational study has revealed that all algorithms with the exception of NSGA-II and NSGA-III were able to find a solution possessing an efficiency of 70.6 on every problem instance in their median runs. The best solutions obtained by NSGA-II and NSGA-III across all problems exhibit an efficiency of 70.5. Both values are higher than efficiencies achieved by previous optimization efforts (\cite{Seijo2016309}).
+A question that needs to be addressed in this context is, whether the multi-objective approach is suited to find a solution that maximizes the efficiency of the cogeneration process. Our computational study has revealed that all algorithms with the exception of NSGA-II and NSGA-III were able to find a solution possessing an efficiency of 70.6 on every problem instance in their median runs. The best solutions obtained by NSGA-II and NSGA-III across all problems exhibit an efficiency of 70.5. Both values are higher than any efficiencies achieved by previous optimization efforts, where values varied largely between 61 and 70 (\cite[Fig. 11]{Seijo2016309}).
 
 If a choice rule such as (\ref{eq:efficiency}) is given, it makes sense to focus the search from the beginning on those regions of the Pareto front that yield the highest efficiency. In a multi-objective context, however, a decision maker is usually not only interest in obtaining a preconceived optimum, but also in comparing his choice to other options available (\cite{roy1996multicriteria,kahneman1979prospect}).
 
@@ -85,7 +85,7 @@ ESPEA provides a mechanism that bridges the gap between those conflicting goals.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{figures/espea-charge.pdf}
+\includegraphics[width=0.7\textwidth]{figures/espeacharge_cropped.pdf}
 \caption{ESPEA run using effiency values as charges.}
 \label{fig:espea}
 \end{figure}
