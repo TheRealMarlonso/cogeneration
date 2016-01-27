@@ -15,10 +15,9 @@ To train and test the NNs, a big data set was collected trough a one-year lectur
 The result of the modeling is presented in Table \ref{tbl:mse} where the Mean Squared Error (MSE) between the desired and actual output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small, even in the testing case, where the NNs deal with unseen data. These results validate the modeling performance of the trained NNs. 
 
 \begin{table}[!t]
+\caption{MSE for training and testing samples for each Neural Network.}
 \label{tbl:mse}
   \centering
-\caption{MSE for training and testing samples for each Neural Network.}
-\label{MSE} %\centering
 \begin{tabular}{lrrrr} \toprule
  & Structure* & Iterations & Train Error & Test Error \\ \midrule
 Cooling Engine A & 3/6/1 & \num{6000} & \SI{0.21}{\percent} & \SI{0.23}{\percent} \\
@@ -46,41 +45,41 @@ To better appreciate the predicting ability of the NNs, we have also plotted, th
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{IrrigationA-ANN.pdf}
-\caption{Real data and NN predicted data for the Cooling Circuit Temperature of Engine A ($T_{Mixt\_EngA}$)}
+\caption{Real data and NN predicted data for the Cooling Circuit Temperature of Engine A ($T_{Mixt\_EngA}$).}
 \label{TcoolA}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{ANNengineD.pdf}
-\caption{Real data and NN predicted data for the Natural Gas Flow  of Engine A ($F_{GasA}$) }
+\caption{Real data and NN predicted data for the Natural Gas Flow  of Engine A ($F_{GasA}$).}
 \label{FengineA}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{ANN-STcond.pdf}
-\caption{Real data and NN predicted data for the Steam Presure of the Condenser  ($P_{Cond}$) }
+\caption{Real data and NN predicted data for the Steam Presure of the Condenser  ($P_{Cond}$).}
 \label{Pcond}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{ANN-EXHAUSTRECOVERY.pdf}
-\caption{Real data and NN predicted data for the Steam Flow in the Boiler($F_{Steam}$) }
+\caption{Real data and NN predicted data for the Steam Flow in the Boiler($F_{Steam}$).}
 \label{Fboiler}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{ANN-ST.pdf}
-\caption{Real data and NN predicted data for the Power generated in the Turbine ($POW_{ST}$) }
+\caption{Real data and NN predicted data for the Power generated in the Turbine ($POW_{ST}$).}
 \label{Pturbine}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{ANN-Evaporator.pdf}
-\caption{Real data and NN predicted data for the Slurry drying process ($F_{Ev}$) }
-\label{Pturbine}
+\caption{Real data and NN predicted data for the Slurry drying process ($F_{Ev}$).}
+\label{PEvaporator}
 \end{figure}
