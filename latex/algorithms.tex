@@ -1,21 +1,21 @@
 \section{Evolutionary Algorithm-based Optimization}
 \label{sec:optimization}
-Once the CHP plant has been modeled by means of the connected NNs, the next step is to  carry out an optimization process to improve the efficiency of the whole process. In particular, we focus on three performance objectives: 1) minimizing the amount of used fuel FG (i.e., natural gas flow), 2) maximizing the generated power POW and 3) maximizing the useful thermal energy FEv (i.e., flow of the fluent in the evaporator). Therefore, we have actually a multi-objective optimization problem. To perform this process, a total of twelve decision variables  are available in the plant; that is, a set of input variables whose values can be changed freely (within certain limits) by the user. These twelve variables are those highlighted in Figure  \ref{fignns}. The mathematical formulation of this multi-objective problem is as follows:
+Once the CHP plant has been modeled by means of the connected NNs, the next step is to  carry out an optimization process to improve the efficiency of the whole process. In particular, we focus on three performance objectives: 1) minimizing the amount of used fuel $FG$ (i.e., natural gas flow); 2) maximizing the useful thermal energy $FE_v$ (i.e., flow of the fluent in the evaporator) and 3) maximizing the generated power $POW$. Therefore, we have actually a multi-objective optimization problem. To perform this process, a total of twelve decision variables  are available in the plant; that is, a set of input variables whose values can be changed freely (within certain limits) by the user. These twelve variables are those highlighted in Figure  \ref{fignns}. The mathematical formulation of this multi-objective problem is as follows:
 %
 \begin{itemize}[-]
-	\item Minimize used fuel:		$F_{FlueGas} = F_{Gas_A} + F_{Gas_B} + F_{Gas_C} + F_{Gas_D}$
-	\item Maximize drying process: 	$F_{Ev}$
-	\item Maximize Power:		$POW = POW_A + POW_B + POW_C + POW_D + POW_{ST}$
+	\item Minimize used fuel: $FG = F_{Gas_A} + F_{Gas_B} + F_{Gas_C} + F_{Gas_D}$.
+	\item Maximize drying process: $F_{Ev}$.
+	\item Maximize power: $POW = POW_A + POW_B + POW_C + POW_D + POW_{ST}$.
 \end{itemize}
 %
 The decision variables and their restrictions are listed below:
 %
 \begin{itemize}[-]
-	\item $T_{B1\_A}, T_{B2\_A}, T_{B1\_B}, T_{B2\_B}, T_{B1\_C}, T_{B2\_C}, T_{B1\_D}, T_{B1\_D}$. (i.e., two air intake temperatures for each engine). $\SI{30}{\celsius} \leq T  \leq  \SI{38}{\celsius}$
-	\item $T_{H2O\_Ex}$ (exchange water temperature). $\SI{61}{\celsius}  \leq T  \leq  \SI{65}{\celsius}$
-	\item $P_{St\_Gen}$ (pressure of the steam generator). $\SI{20}{bar}  \leq  P  \leq  \SI{22}{bar}$
-	\item $P_{Ev}$ (evaporator pressure). $\SI{0.13}{bar}  \leq  P  \leq  \SI{0.17}{bar}$
-	\item $T_{H2O\_SH}$ (superheated water temperature). $\SI{110}{\celsius}  \leq  T  \leq  \SI{125}{\celsius}$
+	\item $T_{B1\_A}, T_{B2\_A}, T_{B1\_B}, T_{B2\_B}, T_{B1\_C}, T_{B2\_C}, T_{B1\_D}, T_{B1\_D}$. (i.e., two air intake temperatures for each engine). $\SI{30}{\celsius} \leq T  \leq  \SI{38}{\celsius}$.
+	\item $T_{H2O\_Ex}$ (exchange water temperature). $\SI{61}{\celsius}  \leq T  \leq  \SI{65}{\celsius}$.
+	\item $P_{St\_Gen}$ (pressure of the steam generator). $\SI{20}{bar}  \leq  P  \leq  \SI{22}{bar}$.
+	\item $P_{Ev}$ (evaporator pressure). $\SI{0.13}{bar}  \leq  P  \leq  \SI{0.17}{bar}$.
+	\item $T_{H2O\_SH}$ (superheated water temperature). $\SI{110}{\celsius}  \leq  T  \leq  \SI{125}{\celsius}$.
 \end{itemize}
 
 Our combined approach of using NNs as black box functions may be applied in conjunction with any optimization algorithm that is able to handle real-valued decision variables. For this reason, several state-of-the-art, multiobjective optimization evolutionary algorithms, which all use different search strategies, are considered for solving the proposed optimization problem.
