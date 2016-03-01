@@ -1,45 +1,51 @@
 \section{Neural Network Modeling}
 \label{NN}
 
-As it has been stated in the introduction, the modeling of the CHP plant described in the previous section has been performed by means of  NNs. In particular, we have adopted a divide-and-conquer strategy. That is, we have modeled each main component of the plant separately with an NN, and then, we have linked (connected) all the networks by means of shared or common variables (e.g.; an output variable of a network can be an input variable of one or several other networks). The global model is shown in Figure \ref{fignns} where a total of twelve NNs are depicted: four for the engines, four for the engine cooling  circuits, one for the exhaust steam boiler, one for the steam turbine condenser, one for the steam turbine and finally another one for the slurry drying process. All the NNs are actually multilayer perceptrons with just one hidden layer. In all of them, the number of neurons of the hidden layer is twice the number of inputs and there is only one neuron in the output layer (i.e., each NN computes just a single output value). These outputs are respectively: a) the temperature of the water to cool each engine ($T_{Mixt\_EngA}, \dots, T_{Mixt\_EngD}$; b) the flow of fuel (i.e. natural gas) required by each engine ($F_{Gas_A} \dots F_{Gas_D}$); c) the pressure of the condenser ($P_{CON}$); d) the steam flow in the boiler ($F_{Steam}$); e) the electric power produced by the turbine ($POW_{ST}$) and f) the flow of slurry processed by the evaporator ($F_{EV}$). 
+As it has been stated in the introduction, the modeling of the CHP plant described in the previous section has been performed by means of  NNs. In particular, we have adopted a divide-and-conquer strategy. That is, we have modeled each main component of the plant separately with an NN, and then, we have linked (connected) all the networks by means of shared or common variables (e.g.; an output variable of a network can be an input variable of one or several other networks). The global model is shown in Figure \ref{fignns} where a total of twelve NNs are depicted: four for the engines, four for the engine cooling  circuits, one for the exhaust steam boiler, one for the steam turbine condenser, one for the steam turbine and finally another one for the slurry drying process. 
 
-To train and test the NNs, a big data set was collected trough a one-year observation process in the real plant. 213 parameters were identified as being potentially relevant for training and validating the NN models. Their values have been measured and retrieved with a resolution of one minute during the whole period of observation. Firstly, a careful analysis of the data was performed to choose the most relevant variables and also to filter outliers, missing data or un-informative variables. Next, based on previous knowledge of the system physics and also on a trial/error process, the particular variables for each model were fixed. Figure \ref{fignns} shows these input/output variables for the different NNs. The variables written in bold refer to the decision variables that are used in the optimization process. Finally, from the whole data set, we have chosen 10-minute separated values, because we observed that the variables change very little in a minute, due to the slow dynamics of the plant. Therefore we have a total of about \num{40000} samples, half of which were used to train the networks and the other half to test the modeling performance. To train the NNs the Back-Propagation algorithm was used, which, depending on the case, needed between \num{4000} and \num{20000} iterations to perform the learning process (i.e. until the error was stabilized and it was lower than a threshold). The whole modeling process has been carried out by using the Optibat trainer Tool (\cite{Optibat}).
+As neural network model, we have selected the multilayer perceptron (MLP) as it has become the most popular architecture for real-world applications, mainly due to the development of the backpropagation learning rule, which is an effective and practical learning algorithm (\cite{Khota-1998}). Moreover, MLP  is an universal approximator and hence, it is capable of approximating any measurable function to any desired degree of accuracy (\cite{Hornik-1989}).
+
+In order to select the structure of the MLP model, some initial tests were made using different number of hidden layers. It was concluded that the accuracy did not show any significant improvement after increasing the number of hidden layers. Therefore, the simplest option was selected: only one hidden layer. Similarly, some initial tests were made with different number of hidden nodes. It was concluded that when the number of neurons increases beyond twice the number of inputs (i.e., a common practical rule), results barely improve. Therefore, the adopted criterion in all the models is, using twice as many hidden nodes as the number of inputs.
+
+In our modeling,  each NN computes a single output, which in some cases becomes the input for another model (see Figure \ref{fignns}).  These outputs are respectively: a) the temperature of the water to cool each engine ($T_{Mixt\_EngA}$, \dots, $T_{Mixt\_EngD}$; b) the flow of fuel (i.e. natural gas) required by each engine ($F_{Gas_A} \dots F_{Gas_D}$); c) the pressure of the condenser ($P_{CON}$); d) the steam flow in the boiler ($F_{Steam}$); e) the electric power produced by the turbine ($POW_{ST}$) and f) the flow of slurry processed by the evaporator ($F_{EV}$). 
+
+To train and test the NNs, a big and complete data set was collected trough a one-year observation process in the real plant.  213 parameters were identified as being potentially relevant for training and validating the NN models. Their values have been measured and retrieved with a resolution of one minute during the whole period of observation. Firstly, a careful analysis of the data was performed to choose the most relevant variables and also to filter outliers, missing data or un-informative variables. Next, based on previous knowledge of the system physics and also on a trial/error process, we determined the particular input variables involved in each NN. Figure \ref{fignns} shows which are the input/output variables for the different NNs. The variables written in bold refer to the decision variables that will be used later in the optimization process. To make the huge data set more tractable, we have selected 10-minute separated values. This action can be realized, because we have observed that the variables change very little in that period, due to the slow dynamics of the plant. We, thus, obtain a total of about \num{40000} samples for each variable. Now, for making the NNs capable of modeling the different dynamics of the process throughout the whole year, we have made the training/testing partition in the following way: data from odd months (i.e., January, March, May, \dots) are used to train the models, and data from even months (i.e., February, April, June, \dots) are used to test the modeling performance of the trained NNs. The whole training/testing process has been carried out by using the Optibat trainer Tool (\cite{Optibat}).
 
 \begin{figure}
 \includegraphics[width=1\textwidth]{NNs.pdf}
 \caption{Modeling of the CHP Plant by means of interconnected NNs. Each block represents an NN.}
 \label{fignns}
 \end{figure}
-\FloatBarrier
 
-The result of the modeling is presented in Table \ref{tbl:mse}, where the mean squared error (MSE) between the desired and actual output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small, even in the testing case, where the NNs deal with unseen data. These results validate the modeling performance of the trained NNs.
+The results of the modeling are presented in Table \ref{tbl:mse}, where the mean squared error (MSE) between the desired and actual output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
+
+
 
 \begin{table}[!t]
 \caption{MSE for training and testing samples for each Neural Network.}
 \label{tbl:mse}
   \centering
 \begin{tabular}{lrrrr} \toprule
- & Structure* & Iterations & Train Error & Test Error \\ \midrule
-Cooling Engine A & 3/6/1 & \num{6000} & \SI{0.21}{\percent} & \SI{0.23}{\percent} \\
-Cooling Engine B & 3/6/1 & \num{6000} & \SI{0.28}{\percent} & \SI{0.26}{\percent} \\
-Cooling Engine C & 3/6/1 & \num{6000} & \SI{0.10}{\percent} & \SI{0.13}{\percent} \\
-Cooling Engine D & 3/6/1 & \num{6000} & \SI{0.49}{\percent} & \SI{0.33}{\percent} \\
- Engine A & 10/20/1 & \num{20000} & \SI{0.39}{\percent} & \SI{0.42}{\percent} \\
- Engine B & 10/20/1 & \num{20000} & \SI{0.41}{\percent} & \SI{0.41}{\percent} \\
- Engine C & 10/20/1 & \num{20000} & \SI{0.38}{\percent} & \SI{0.42}{\percent} \\
- Engine D & 10/20/1 & \num{20000} & \SI{0.38}{\percent} & \SI{0.37}{\percent} \\
- Recovery Boiler & 2/4/1 & \num{4000} & \SI{0.61}{\percent} & \SI{0.63}{\percent} \\
- Steam Condenser & 2/4/1 & \num{4000} & \SI{1.01}{\percent} & \SI{0.96}{\percent} \\
- Steam Turbine & 3/6/1 & \num{6000} & \SI{0.67}{\percent} & \SI{0.70}{\percent} \\
- Slurry Process & 5/10/1 & \num{10000} & \SI{2.35}{\percent} & \SI{2.52}{\percent} \\
+ & Structure  & Training Error & Testing Error \\ \midrule
+Cooling Engine A & 3/6/1 & \SI{0.21}{\percent} & \SI{0.23}{\percent} \\
+Cooling Engine B & 3/6/1  & \SI{0.28}{\percent} & \SI{0.26}{\percent} \\
+Cooling Engine C & 3/6/1  & \SI{0.10}{\percent} & \SI{0.13}{\percent} \\
+Cooling Engine D & 3/6/1  & \SI{0.49}{\percent} & \SI{0.33}{\percent} \\
+ Engine A & 10/20/1  & \SI{0.39}{\percent} & \SI{0.42}{\percent} \\
+ Engine B & 10/20/1  & \SI{0.41}{\percent} & \SI{0.41}{\percent} \\
+ Engine C & 10/20/1  & \SI{0.38}{\percent} & \SI{0.42}{\percent} \\
+ Engine D & 10/20/1  & \SI{0.38}{\percent} & \SI{0.37}{\percent} \\
+ Recovery Boiler & 2/4/1  & \SI{0.61}{\percent} & \SI{0.63}{\percent} \\
+ Steam Condenser & 2/4/1  & \SI{1.01}{\percent} & \SI{0.96}{\percent} \\
+ Steam Turbine & 3/6/1  & \SI{0.67}{\percent} & \SI{0.70}{\percent} \\
+ Slurry Process & 5/10/1  & \SI{2.35}{\percent} & \SI{2.52}{\percent} \\
  \bottomrule
 \end{tabular}
 \vspace{-0.3cm}
 
 \end{table}
 
-
-For better appreciating the predicting ability of the NNs, we have also plotted the predicted data and the real data for the testing points. Because the four cooling-circuit models and the four engine models have  similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$. Furthermore, due to the large amount of samples, the points are re-sampled every 30 minutes for the graphics. We can observe how the  real and predicted curves are quite similar in all the examples, confirming thus that the NNs are able to learn properly the dynamics of the plant.
+For better appreciating the modeling ability of the NNs, we have also plotted the predicted data and the real data for the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have  similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  We can observe how, although some peaks are not very well modeled, the predicted curves follow, in general,  the main trends of the real outputs, confirming thus that the NNs are able to learn rather well the dynamics of the plant.
 
 
 \begin{figure}
@@ -66,7 +72,7 @@ For better appreciating the predicting ability of the NNs, we have also plotted 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{ANN-EXHAUSTRECOVERY.pdf}
-\caption{Real data and NN predicted data for the steam flow in the boiler($F_{Steam}$).}
+\caption{Real data and NN predicted data for the steam flow in the boiler ($F_{Steam}$).}
 \label{Fboiler}
 \end{figure}
 
