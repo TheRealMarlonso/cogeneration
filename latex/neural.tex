@@ -1,21 +1,56 @@
 \section{Neural Network Modeling}
 \label{NN}
 
-As it has been stated in the introduction, the modeling of the CHP plant described in the previous section has been performed by means of  NNs. In particular, we have adopted a divide-and-conquer strategy. That is, we have modeled each main component of the plant separately with an NN, and then, we have linked (connected) all the networks by means of shared or common variables (e.g.; an output variable of a network can be an input variable of one or several other networks). The global model is shown in Figure \ref{fignns} where a total of twelve NNs are depicted: four for the engines, four for the engine cooling  circuits, one for the exhaust steam boiler, one for the steam turbine condenser, one for the steam turbine and finally another one for the slurry drying process. 
+As it has been stated in the introduction, the modeling of the CHP plant described in the previous section has been performed by means of  NNs. In particular, we have adopted a divide-and-conquer strategy. That is, we have modeled each main component of the plant separately with an NN, and then, we have linked (connected) all the networks by means of shared or common variables (e.g.; an output variable of a network can be an input variable of one or several other networks). The global model is shown in Table \ref{fignns} where a total of twelve NNs are depicted: four for the engines, four for the engine cooling  circuits, one for the exhaust steam boiler, one for the steam turbine condenser, one for the steam turbine and finally another one for the slurry drying process. 
 
-As neural network model, we have selected the multilayer perceptron (MLP) as it has become the most popular architecture for real-world applications, mainly due to the development of the backpropagation learning rule, which is an effective and practical learning algorithm (\cite{Khota-1998}). Moreover, MLP  is an universal approximator and hence, it is capable of approximating any measurable function to any desired degree of accuracy (\cite{Hornik-1989}).
+As neural network model, we have selected the multilayer perceptron (MLP) as it has become the most popular architecture for real-world applications, mainly due to the development of the backpropagation learning rule, which is an effective and practical learning algorithm \cite{Khota-1998}. Moreover, MLP  is an universal approximator and hence, it is capable of approximating any measurable function to any desired degree of accuracy \cite{Hornik-1989}.
 
 In order to select the structure of the MLP model, some initial tests were made using different number of hidden layers. It was concluded that the accuracy did not show any significant improvement after increasing the number of hidden layers. Therefore, the simplest option was selected: only one hidden layer. Similarly, some initial tests were made with different number of hidden nodes. It was concluded that when the number of neurons increases beyond twice the number of inputs (i.e., a common practical rule), results barely improve. Therefore, the adopted criterion in all the models is, using twice as many hidden nodes as the number of inputs.
 
-In our modeling,  each NN computes a single output, which in some cases becomes the input for another model (see Figure \ref{fignns}).  These outputs are respectively: a) the temperature of the water to cool each engine ($T_{Mixt\_EngA}$, \dots, $T_{Mixt\_EngD}$; b) the flow of fuel (i.e. natural gas) required by each engine ($F_{Gas_A} \dots F_{Gas_D}$); c) the pressure of the condenser ($P_{CON}$); d) the steam flow in the boiler ($F_{Steam}$); e) the electric power produced by the turbine ($POW_{ST}$) and f) the flow of slurry processed by the evaporator ($F_{EV}$). 
+In our modeling,  each NN computes a single output, which in some cases becomes the input for another model (see Table \ref{fignns}).  These outputs are respectively: a) the temperature of the water to cool each engine ($T_{Mixt\_EngA}$, \dots, $T_{Mixt\_EngD}$; b) the flow of fuel (i.e. natural gas) required by each engine ($F_{Gas_A} \dots F_{Gas_D}$); c) the pressure of the condenser ($P_{CON}$); d) the steam flow in the boiler ($F_{Steam}$); e) the electric power produced by the turbine ($POW_{ST}$) and f) the flow of slurry processed by the evaporator ($F_{EV}$).
 
-To train and test the NNs, a big and complete data set was collected trough a one-year observation process in the real plant.  213 parameters were identified as being potentially relevant for training and validating the NN models. Their values have been measured and retrieved with a resolution of one minute during the whole period of observation. Firstly, a careful analysis of the data was performed to choose the most relevant variables and also to filter outliers, missing data or un-informative variables. Next, based on previous knowledge of the system physics and also on a trial/error process, we determined the particular input variables involved in each NN. Figure \ref{fignns} shows which are the input/output variables for the different NNs. The variables written in bold refer to the decision variables that will be used later in the optimization process. To make the huge data set more tractable, we have selected 10-minute separated values. This action can be realized, because we have observed that the variables change very little in that period, due to the slow dynamics of the plant. We, thus, obtain a total of about \num{40000} samples for each variable. Now, for making the NNs capable of modeling the different dynamics of the process throughout the whole year, we have made the training/testing partition in the following way: data from odd months (i.e., January, March, May, \dots) are used to train the models, and data from even months (i.e., February, April, June, \dots) are used to test the modeling performance of the trained NNs. The whole training/testing process has been carried out by using the Optibat trainer Tool (\cite{Optibat}).
-
-\begin{figure}
-\includegraphics[width=1\textwidth]{NNs.pdf}
-\caption{Modeling of the CHP Plant by means of interconnected NNs. Each block represents an NN.}
+\begin{table}[!t]
+\caption{CHP Neural-Networks and their corresponding variables.}
 \label{fignns}
-\end{figure}
+  \centering
+\begin{tabular}{lll} \toprule
+ Neural-Network  & Inputs of the model & Output \\ \midrule
+Cooling Engine A & $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_A $ & $T_{Mixt\_EngA} $ \\
+Cooling Engine B & $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_B $ & $T_{Mixt\_EngB} $ \\
+Cooling Engine C & $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_C $ & $T_{Mixt\_EngC} $ \\
+Cooling Engine D& $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_D $ & $T_{Mixt\_EngD} $ \\
+
+ Engine A& $\bf{T_{B1\_A}, T_{B2\_A}}$, $T_{Amb}, H_{Amb}, LHV $ & $F_{Gas\_A} $ \\
+ & $T_{Bank1\_A}, T_{Bank2\_A}, T_{Mixt\_EngA}, POW_A, DIV_A $ &  \\
+ 
+ Engine B& $\bf{T_{B1\_B}, T_{B2\_B}}$, $T_{Amb}, H_{Amb}, LHV $ & $F_{Gas\_B} $ \\
+ & $T_{Bank1\_B}, T_{Bank2\_B}, T_{Mixt\_EngB}, POW_B, DIV_B $ &  \\
+ 
+ Engine C& $\bf{T_{B1\_C}, T_{B2\_C}}$, $T_{Amb}, H_{Amb}, LHV $ & $F_{Gas\_C} $ \\
+ & $T_{Bank1\_C}, T_{Bank2\_C}, T_{Mixt\_EngC}, POW_C, DIV_C $ &  \\
+ 
+ Engine D& $\bf{T_{B1\_D}, T_{B2\_D}}$, $T_{Amb}, H_{Amb}, LHV $ & $F_{Gas\_D} $ \\
+ & $T_{Bank1\_D}, T_{Bank2\_D}, T_{Mixt\_EngD}, POW_D, DIV_D $ &  \\ 
+ 
+Exh. steam boiler & $\bf{P_{StGen}}$, $F_{FlueGas}$ & $F_{Steam} $ \\
+Steam turbine & $T_{H2O\_TOW}, T_{ST\_Cond}$ & $P_{Cond} $ \\
+Condenser & & \\
+Steam turbine & $P_{StGen}, F_{Steam}, P_{Cond}$ & $POW_{ST} $ \\
+Slurry process & $\bf{P_{EV}, T_{H2O\_SH}, T_{H2O\_Ex}}$, $F_{Cond} $ & $F_{Ev}$ \\ \midrule
+
+
+\end{tabular}
+\vspace{-0.3cm}
+
+\end{table}
+
+To train and test the NNs, a big and complete data set was collected trough a one-year observation process in the real plant.  213 parameters were identified as being potentially relevant for training and validating the NN models. Their values have been measured and retrieved with a resolution of one minute during the whole period of observation. Firstly, a careful analysis of the data was performed to choose the most relevant variables and also to filter outliers, missing data or un-informative variables. Next, based on previous knowledge of the system physics and also on a trial/error process, we determined the particular input variables involved in each NN. Table \ref{fignns} shows which are the input/output variables for the different NNs. The variables written in bold refer to the decision variables that will be used later in the optimization process. To make the huge data set more tractable, we have selected 10-minute separated values. This action can be realized, because we have observed that the variables change very little in that period, due to the slow dynamics of the plant. We, thus, obtain a total of about \num{40000} samples for each variable. Now, for making the NNs capable of modeling the different dynamics of the process throughout the whole year, we have made the training/testing partition in the following way: data from odd months (i.e., January, March, May, \dots) are used to train the models, and data from even months (i.e., February, April, June, \dots) are used to test the modeling performance of the trained NNs. The whole training/testing process has been carried out by using the Optibat trainer Tool \cite{Optibat}.
+
+%\begin{figure}
+%\includegraphics[width=1\textwidth]{NNs.pdf}
+%\caption{Modeling of the CHP Plant by means of interconnected NNs. Each block represents an NN.}
+%\label{fignns}
+%\end{figure}
 
 The results of the modeling are presented in Table \ref{tbl:mse}, where the mean squared error (MSE) between the desired and actual output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
 
@@ -50,42 +85,42 @@ For better appreciating the modeling ability of the NNs, we have also plotted th
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{IrrigationA-ANN.pdf}
+\includegraphics[width=1\textwidth]{figures/IrrigationA-ANN.pdf}
 \caption{Real data and NN predicted data for the cooling circuit temperature of Engine A ($T_{Mixt\_EngA}$).}
 \label{TcoolA}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{ANNengineD.pdf}
+\includegraphics[width=1\textwidth]{figures/ANNengineD.pdf}
 \caption{Real data and NN predicted data for the natural gas flow  of Engine A ($F_{GasA}$).}
 \label{FengineA}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{ANN-STcond.pdf}
+\includegraphics[width=1\textwidth]{figures/ANN-STcond.pdf}
 \caption{Real data and NN predicted data for the steam pressure of the condenser  ($P_{Cond}$).}
 \label{Pcond}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{ANN-EXHAUSTRECOVERY.pdf}
+\includegraphics[width=1\textwidth]{figures/ANN-EXHAUSTRECOVERY.pdf}
 \caption{Real data and NN predicted data for the steam flow in the boiler ($F_{Steam}$).}
 \label{Fboiler}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{ANN-ST.pdf}
+\includegraphics[width=1\textwidth]{figures/ANN-ST.pdf}
 \caption{Real data and NN predicted data for the Power generated in the Turbine ($POW_{ST}$).}
 \label{Pturbine}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{ANN-Evaporator.pdf}
+\includegraphics[width=1\textwidth]{figures/ANN-Evaporator.pdf}
 \caption{Real data and NN predicted data for the Slurry drying process ($F_{Ev}$).}
 \label{PEvaporator}
 \end{figure}
