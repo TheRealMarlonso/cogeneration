@@ -1,5 +1,20 @@
 \appendix
 
+\section{Algorithm Configurations}
+\label{sec:algosetup}
+Binary tournament selection was employed by AbYSS, IBEA, NSGA-II, NSGA-III, SMS-EMOA and ESPEA when the archive had not reached its full size. One selection round was performed for selecting each parent. Population members were drawn uniformly for the tournament. The winner was determined by a simple domination check. NSGA-II used crowding distance values as secondary criterion.
+
+\begin{table}
+\caption{Algorithm configurations used in the computational Study.}
+\centering
+\begin{tabular}{ll} \toprule
+AbYSS & population size = 100 \\
+& reference set 1 size = 10 \\
+& reference set 2 size = 10 \\
+& archive size = 100 \\
+\end{tabular}
+\end{table}
+
 \section{Detailed Study Results}
 
 %\begin{landscape}
