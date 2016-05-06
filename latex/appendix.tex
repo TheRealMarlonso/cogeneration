@@ -1,19 +1,71 @@
+\FloatBarrier
 \appendix
 
 \section{Algorithm Configurations}
 \label{sec:algosetup}
-Binary tournament selection was employed by AbYSS, IBEA, NSGA-II, NSGA-III, SMS-EMOA and ESPEA when the archive had not reached its full size. One selection round was performed for selecting each parent. Population members were drawn uniformly for the tournament. The winner was determined by a simple domination check. NSGA-II used crowding distance values as secondary criterion.
+Binary tournament \cite{binarytournament} selection was employed by AbYSS, IBEA, NSGA-II, NSGA-III, SMS-EMOA and ESPEA when the archive had not reached its maximum size. One selection round was performed for selecting each parent. Population members were uniformly drawn for the tournament. The winner was determined by a simple domination check. NSGA-II used crowding distance values and ESPEA energy values, IBEA fitness values and SMS-EMOA hypervolume contributions as secondary criterion if a tie occurred.
 
-\begin{table}
-\caption{Algorithm configurations used in the computational Study.}
-\centering
-\begin{tabular}{ll} \toprule
-AbYSS & population size = 100 \\
-& reference set 1 size = 10 \\
-& reference set 2 size = 10 \\
-& archive size = 100 \\
-\end{tabular}
-\end{table}
+SBX crossover \cite{sbx} was used by AbYSS, IBEA, NSGA-II, NSGA-III, SMPSO, SMS-EMOA and ESPEA when the archive had not reached its maximum size. A crossover probability of 1 and a distribution index of 20 were chosen. NSGA-III used a distribution index of 30. MOEA/D and ESPEA, when the archive had reached its maximum size, used differential evolution \cite{differentialevolutionjournal}. MOEA/D used a scaling factor of 0.5 and a crossover probability of 1. ESPEA used the 'current-to-rand/1/bin' selection scheme, a crossover probability of 0.5 and a scaling factor of 0.5.
+
+Polynomial mutation \cite{polynomialmutation} was employed by all algorithms using a mutation probability of 1 by the number of objectives and a distribution index of 20. Algorithmic-specific configurations can be found in the list below.
+
+\begin{itemize}
+	\item \textbf{AbYSS}
+	\begin{itemize}
+		\item population size = 20
+		\item reference set 1 size = 10
+		\item reference set 2 size = 10
+		\item archive size = 100
+	\end{itemize}
+	\item \textbf{ESPEA}
+	\begin{itemize}
+		\item worst in archive replacement rule
+		\item population size = 100
+		\item archive size = 100
+	\end{itemize}
+	\item \textbf{IBEA}
+	\begin{itemize}
+		\item hypervolume indicator as fitness function
+		\item population size = 100
+		\item archive size = 100
+	\end{itemize}
+	\item \textbf{MOEA/D}
+	\begin{itemize}
+	  \item the same uniform weight vectors as in \cite{moead2009} were chosen
+		\item population size = 100
+		\item neighborhood size $T$ = 100
+		\item neighborhood selection probability $\delta$ = 0.9
+	\end{itemize}
+	\item \textbf{NSGA-II}
+	\begin{itemize}
+		\item population size = 100
+	\end{itemize}
+	\item \textbf{ NSGA-III}
+	\begin{itemize}
+		\item we used the method in \cite{nbi} as suggested in \cite{nsga3part1} with 13 divisions to create 105 uniformly spread reference points
+		\item population size = 100
+	\end{itemize}
+	\item \textbf{SMPSO}
+	\begin{itemize}
+		\item population size = 100
+	\end{itemize}
+	\item \textbf{SMS-EMOA}
+	\begin{itemize}
+		\item population size = 100
+	\end{itemize}
+\end{itemize}
+
+%\begin{table}
+%\caption{Algorithm configurations used in the computational Study.}
+%\label{tbl:configs}
+%\centering
+%\begin{tabular}{ll} \toprule
+%AbYSS & population size: 20 \\
+%& reference set 1 size: 10 \\
+%& reference set 2 size: 10 \\
+%& archive size: 100 \\
+%\end{tabular}
+%\end{table}
 
 \section{Detailed Study Results}
 
