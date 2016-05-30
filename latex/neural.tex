@@ -80,7 +80,7 @@ Cooling Engine D & 3/6/1  & \SI{0.49}{\percent} & \SI{0.33}{\percent} \\
 
 \end{table}
 
-For better appreciating the modeling ability of the NNs, we have also plotted the difference between the predicted data and the real data for the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have  similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  We can observe in these figure how, although there exists some peaks (which in somes cases they are due to outliers or unusual values) the values of these differences are in general small, confirming thus that the NNs are able to learn rather well the dynamics of the plant.
+For better appreciating the modeling ability of the NNs, we have also plotted the difference between the predicted data and the real data for the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have  similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  We can observe in these figures how, although there exists some peaks (which in somes cases they are due to outliers or unusual values) the values of these differences are in general small. In particular the mean value of these differences is below the 0.65\% in all the cases, being the model for the $T_{Mixt\_EngA}$ the best case (0.08\%) and the model for the $F_{Ev}$ the worst case (0.65\%). Thus, it is confirmed that the NNs are able to learn rather well the dynamics of the plant.
 
 
 \begin{figure}
