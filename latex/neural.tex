@@ -44,24 +44,12 @@ Slurry process & $\bf{P_{EV}, T_{H2O\_SH}, T_{H2O\_Ex}}$, $F_{Cond} $ & $F_{Ev}$
 
 \end{table}
 
-To train and test the NNs, a big and complete data set was collected trough a one-year observation process in the real plant.  213 parameters were identified as being potentially relevant for training and validating the NN models. Their values have been measured and retrieved with a resolution of one minute during the whole period of observation. Firstly, a careful analysis of the data was performed to choose the most relevant variables and also to filter outliers, missing data or un-informative variables. Next, based on previous knowledge of the system physics and also on a trial/error process, we determined the particular input variables involved in each NN. Table \ref{fignns} shows which are the input/output variables for the different NNs. The variables written in bold refer to the decision variables that will be used later in the optimization process. To make the huge data set more tractable, we have selected 10-minute separated values. This action can be realized, because we have observed that the variables change very little in that period, due to the slow dynamics of the plant. We, thus, obtain a total of about \num{40000} samples for each variable. Now, for making the NNs capable of modeling the different dynamics of the process throughout the whole year, we have made the training/testing partition in the following way: data from odd months (i.e., January, March, May, \dots) are used to train the models, and data from even months (i.e., February, April, June, \dots) are used to test the modeling performance of the trained NNs. The whole training/testing process has been carried out by using the Optibat trainer Tool \cite{Optibat}.
-
-%\begin{figure}
-%\includegraphics[width=1\textwidth]{NNs.pdf}
-%\caption{Modeling of the CHP Plant by means of interconnected NNs. Each block represents an NN.}
-%\label{fignns}
-%\end{figure}
-
-The results of the modeling are presented in Table \ref{tbl:mse}, where the mean squared error (MSE) between the desired and actual output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
-
-
-
 \begin{table}[!t]
-\caption{MSE for training and testing samples for each Neural Network.}
-\label{tbl:mse}
+\caption{MAE for training and testing samples for each Neural Network.}
+\label{tbl:mae}
   \centering
 \begin{tabular}{lrrrr} \toprule
- & Structure  & Training Error & Testing Error \\ \midrule
+ & Structure  & Training $MAE \times 100$ & Testing $MAE \times100$ \\ \midrule
 Cooling Engine A & 3/6/1 & \SI{0.21}{\percent} & \SI{0.23}{\percent} \\
 Cooling Engine B & 3/6/1  & \SI{0.28}{\percent} & \SI{0.26}{\percent} \\
 Cooling Engine C & 3/6/1  & \SI{0.10}{\percent} & \SI{0.13}{\percent} \\
@@ -80,47 +68,75 @@ Cooling Engine D & 3/6/1  & \SI{0.49}{\percent} & \SI{0.33}{\percent} \\
 
 \end{table}
 
-For better appreciating the modeling ability of the NNs, we have also plotted the difference between the predicted data and the real data for the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have  similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  We can observe in these figures how, although there exists some peaks (which in somes cases they are due to outliers or unusual values) the values of these differences are in general small. In particular the mean value of these differences is below the \SI{0.65}{\percent} in all the cases, being the model for the $T_{Mixt\_EngA}$ the best case (\SI{0.08}{\percent}) and the model for the $F_{Ev}$ the worst case (\SI{0.65}{\percent}). Thus, it is confirmed that the NNs are able to learn rather well the dynamics of the plant.
+To train and test the NNs, a big and complete data set was collected trough a one-year observation process in the real plant.  213 parameters were identified as being potentially relevant for training and validating the NN models. Their values have been measured and retrieved with a resolution of one minute during the whole period of observation. Firstly, a careful analysis of the data was performed to choose the most relevant variables and also to filter outliers, missing data or un-informative variables. Next, based on previous knowledge of the system physics and also on a trial/error process, we determined the particular input variables involved in each NN. Table \ref{fignns} shows which are the input/output variables for the different NNs. The variables written in bold refer to the decision variables that will be used later in the optimization process. To make the huge data set more tractable, we have selected 10-minute separated values. This action can be realized, because we have observed that the variables change very little in that period, due to the slow dynamics of the plant. We, thus, obtain a total of about \num{40000} samples for each variable. Now, for making the NNs capable of modeling the different dynamics of the process throughout the whole year, we have made the training/testing partition in the following way: data from odd months (i.e., January, March, May, \dots) are used to train the models, and data from even months (i.e., February, April, June, \dots) are used to test the modeling performance of the trained NNs. The whole training/testing process has been carried out by using the Optibat trainer Tool \cite{Optibat}. In addition, all the variables have been normalized.
+
+%\begin{figure}
+%\includegraphics[width=1\textwidth]{NNs.pdf}
+%\caption{Modeling of the CHP Plant by means of interconnected NNs. Each block represents an NN.}
+%\label{fignns}
+%\end{figure}
+
+
+The results of the modeling are presented in Table \ref{tbl:mae}, where the mean absolute error $MAE=\frac{1}{N}\sum_{i=1}^{N}{|y_i-y'_i|}$ between the desired ($y_i$) and actual ($y'_i$) output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Only the slurry process presents a little higher error which can be attributed to a little information about its behaviour. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
+
+\begin{table}[!t]
+\caption{Mean values of  real data (Target), absolute difference (between real and NN predicted data-) and relative difference for a subset of testing samples.}
+\label{tbl:diff}
+  \centering
+\begin{tabular}{lrrrrrr} \toprule
+ & $T_{Mixt\_EngA}$ & $F_{GasD}$ & $P_{Cond}$ & $F_{Steam}$ & $POW_{ST}$ & $F_{Ev}$ \\ \midrule
+Real (target) & 0.36 & 0.48 & 0.725 & 0.75 & 0.74 & 0.49 \\
+Difference  & 0.0029 & 0.0047 & 0.0125 & 0.009 & 0.009 & 0.0036 \\
+Relative diff. \%  & 0.8\%  & 0.98\% & 1.7\% & 1.2\% & 1.2\% & 7.35\%\\
+ \bottomrule
+\end{tabular}
+\vspace{-0.3cm}
+
+\end{table}
+
+For better appreciating the modeling ability of the NNs, we have  plotted the absolute difference between the predicted data and the real data and also the real data (target) for a subset of the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  It can be observed in the figures how the differences are in general small except in the slurry process  which presents a little bit worse modelization as we have above explained.  In particular, if we compare the mean value of these differences with the mean value of the respective target values (see Table \ref{tbl:diff}), we can see that in all the cases the difference is around 1\%, except in the slurry process with a 7\% of error. Thus, it is confirmed that in general the NNs are able to learn rather well the dynamics of the plant. 
+
+
 
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figures/TmixEngAdiff.pdf}
-\caption{Difference between real data and NN predicted data for the cooling circuit temperature of Engine A ($T_{Mixt\_EngA}$).}
+\includegraphics[width=1\textwidth]{figures/TmixEngA.pdf}
+\caption{Cooling circuit temperature of Engine A ($T_{Mixt\_EngA}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set.}
 \label{TcoolA}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figures/FGASDdiff.pdf}
-\caption{Difference between real data and NN predicted data for the natural gas flow  of Engine A ($F_{GasA}$).}
+\includegraphics[width=1\textwidth]{figures/FGASD.pdf}
+\caption{Gas flow  of Engine A ($F_{GasA}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set .}
 \label{FengineA}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figures/Pconddiff.pdf}
-\caption{Difference between real data and NN predicted data for the steam pressure of the condenser  ($P_{Cond}$).}
+\includegraphics[width=1\textwidth]{figures/Pcond.pdf}
+\caption{Steam pressure of the condenser ($P_{Cond}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set}
 \label{Pcond}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figures/Fsteamdiff.pdf}
-\caption{Difference between real data and NN predicted data for the steam flow in the boiler ($F_{Steam}$).}
+\includegraphics[width=1\textwidth]{figures/Fsteam.pdf}
+\caption{Steam flow in the boiler ($F_{Steam}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set.}
 \label{Fboiler}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figures/POWdiff.pdf}
-\caption{Difference between real data and NN predicted data for the Power generated in the Turbine ($POW_{ST}$).}
+\includegraphics[width=1\textwidth]{figures/POWst.pdf}
+\caption{Power generated in the Turbine ($POW_{ST}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set.}
 \label{Pturbine}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figures/Fevdiff.pdf}
-\caption{Difference between real data and NN predicted data for the Slurry drying process ($F_{Ev}$).}
+\includegraphics[width=1\textwidth]{figures/Fev.pdf}
+\caption{Slurry drying process ($F_{Ev}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set}
 \label{PEvaporator}
 \end{figure}
