@@ -80,7 +80,7 @@ To train and test the NNs, a big and complete data set was collected trough a on
 The results of the modeling are presented in Table \ref{tbl:mae}, where the mean absolute error $MAE=\frac{1}{N}\sum_{i=1}^{N}{|y_i-y'_i|}$ between the desired ($y_i$) and actual ($y'_i$) output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Only the slurry process presents a little higher error which can be attributed to a little information about its behaviour. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
 
 \begin{table}[!t]
-\caption{Mean values of  real data (Target), absolute difference (between real and NN predicted data-) and relative difference for a subset of testing samples.}
+\caption{Mean values of  real data (Target), absolute difference (between real and NN predicted data) and relative difference for a subset of testing samples.}
 \label{tbl:diff}
   \centering
 \begin{tabular}{lrrrrrr} \toprule
