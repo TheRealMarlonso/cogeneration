@@ -10,11 +10,11 @@ In order to select the structure of the MLP model, some initial tests were made 
 In our modeling,  each NN computes a single output, which in some cases becomes the input for another model (see Table \ref{fignns}).  These outputs are respectively: a) the temperature of the water to cool each engine ($T_{Mixt\_EngA}$, \dots, $T_{Mixt\_EngD}$; b) the flow of fuel (i.e. natural gas) required by each engine ($F_{Gas_A} \dots F_{Gas_D}$); c) the pressure of the condenser ($P_{CON}$); d) the steam flow in the boiler ($F_{Steam}$); e) the electric power produced by the turbine ($POW_{ST}$) and f) the flow of slurry processed by the evaporator ($F_{EV}$).
 
 \begin{table}[!t]
-\caption{CHP Neural-Networks and their corresponding variables.}
+\caption{CHP neural networks and their corresponding variables.}
 \label{fignns}
   \centering
 \begin{tabular}{lll} \toprule
- Neural-Network  & Inputs of the model & Output \\ \midrule
+ Neural network  & Inputs of the model & Output \\ \midrule
 Cooling Engine A & $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_A $ & $T_{Mixt\_EngA} $ \\
 Cooling Engine B & $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_B $ & $T_{Mixt\_EngB} $ \\
 Cooling Engine C & $\bf{T_{H2O\_Ex}}$, $T_{H2O\_TOW}, POW_C $ & $T_{Mixt\_EngC} $ \\
@@ -45,7 +45,7 @@ Slurry process & $\bf{P_{EV}, T_{H2O\_SH}, T_{H2O\_Ex}}$, $F_{Cond} $ & $F_{Ev}$
 \end{table}
 
 \begin{table}[!t]
-\caption{MAE for training and testing samples for each Neural Network.}
+\caption{MAE for training and testing samples for each neural network.}
 \label{tbl:mae}
   \centering
 \begin{tabular}{lrrrr} \toprule
@@ -77,10 +77,10 @@ To train and test the NNs, a big and complete data set was collected trough a on
 %\end{figure}
 
 
-The results of the modeling are presented in Table \ref{tbl:mae}, where the mean absolute error $MAE=\frac{1}{N}\sum_{i=1}^{N}{|y_i-y'_i|}$ between the desired ($y_i$) and actual ($y'_i$) output, for both the training and the testing phase, is shown. We can see that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Only the slurry process presents a little higher error which can be attributed to a little information about its behaviour. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
+The results of the modeling are presented in Table \ref{tbl:mae}, where the mean absolute error $MAE=\frac{1}{N}\sum_{i=1}^{N}{|y_i-y'_i|}$ between the desired ($y_i$) and actual ($y'_i$) output, for both the training and the testing phase, is shown. We observe that, in all the cases, the obtained  errors are very small. More precisely, most of the models provide a training error less than \SI{1}{\percent}. Only the slurry process exhibits a slightly higher error, which can be attributed to little information about its behavior. Even in the testing case, where the NNs deal with unseen data, the error is quite small. Note that the testing error represents the model's behavior better than the training error as it contains unseen data during the training of the models. Hence, the testing error is used to evaluate the  model's  predictive behavior. We can see that for all the models, the difference between the training error and the testing error was always less than \SI{0.3}{\percent}. This means that the models were capable of learning the dynamic of the systems and can make accurate predictions when dealing with unseen data. These results validate the modeling performance of the trained NNs. 
 
 \begin{table}[!t]
-\caption{Mean values of  real data (Target), absolute difference (between real and NN predicted data) and relative difference for a subset of testing samples.}
+\caption{Mean values of  real data (target), absolute difference (between real and NN predicted data) and relative difference for a subset of testing samples.}
 \label{tbl:diff}
   \centering
 \begin{tabular}{lrrrrrr} \toprule
@@ -94,7 +94,7 @@ Relative diff. \%  & 0.8\%  & 0.98\% & 1.7\% & 1.2\% & 1.2\% & 7.35\%\\
 
 \end{table}
 
-For better appreciating the modeling ability of the NNs, we have  plotted the absolute difference between the predicted data and the real data and also the real data (target) for a subset of the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  It can be observed in the figures how the differences are in general small except in the slurry process  which presents a little bit worse modelization as we have above explained.  In particular, if we compare the mean value of these differences with the mean value of the respective target values (see Table \ref{tbl:diff}), we can see that in all the cases the difference is around 1\%, except in the slurry process with a 7\% of error. Thus, it is confirmed that in general the NNs are able to learn rather well the dynamics of the plant. 
+For better appreciating the modeling ability of the NNs, we have  plotted the absolute difference between the predicted data and the real data and also the real data (target) for a subset of the testing points (Figures \ref{TcoolA} to \ref{PEvaporator}). Because the four cooling-circuit models and the four engine models have similar behavior, we have plotted only the output variables of six of the twelve models: $T_{Mixt\_EngA}$, $F_{GasD}$, $P_{Cond}$, $F_{Steam}$, $POW_{ST}$ and $F_{Ev}$.  It can be observed in the figures that the differences are in general small, except in the slurry process,  which is modeled slightly worse as we have  explained above.  In particular, if we compare the mean value of these differences with the mean value of the respective target values (see Table \ref{tbl:diff}), we can see that, in all the cases, the difference is around 1\%, except in the slurry process with a 7\% error. Thus, it is confirmed that, in general, the NNs are able to learn rather well the dynamics of the plant. 
 
 
 
@@ -109,14 +109,14 @@ For better appreciating the modeling ability of the NNs, we have  plotted the ab
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{figures/FGASD.pdf}
-\caption{Gas flow  of Engine A ($F_{GasA}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set .}
+\caption{Gas flow  of Engine A ($F_{GasA}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set.}
 \label{FengineA}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{figures/Pcond.pdf}
-\caption{Steam pressure of the condenser ($P_{Cond}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set}
+\caption{Steam pressure of the condenser ($P_{Cond}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set.}
 \label{Pcond}
 \end{figure}
 
@@ -137,6 +137,6 @@ For better appreciating the modeling ability of the NNs, we have  plotted the ab
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{figures/Fev.pdf}
-\caption{Slurry drying process ($F_{Ev}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set}
+\caption{Slurry drying process ($F_{Ev}$): Real data (target) and absolute difference between real data and NN predicted data for a subset of the testing set.}
 \label{PEvaporator}
 \end{figure}
